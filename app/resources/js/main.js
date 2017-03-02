@@ -75,14 +75,27 @@ renderTodoList();
 document.getElementById('add').addEventListener('click',function() {
     var value = document.getElementById('item').value;
 
-    if(value) {
-      additemTodo(value);
-      document.getElementById('item').value='';
+    addItem(value);
 
-      data.todo.push(value);
-      dataObjectUpdated();
-    }
 }); // parameters --> what kind of event, callback
+
+document.getElementById('item').addEventListener('keydown', function(e){
+  var value = this.value; // 'this' is used to reduce code repetition. Here we could have written var value = document.getElementById('item').value but by doing so we are repeting "document.getElementById('item')" when we have already defined it when we were defining the event. So we can use "this" in these conditions.
+  if(e.code==='Enter' && value){
+    addItem(value);
+  }
+});
+
+
+function addItem(value){
+  if(value) {
+    additemToDOM(value);
+    document.getElementById('item').value='';
+
+    data.todo.push(value);
+    dataObjectUpdated();
+  }
+}
 
 // If data is stored in local storage we need to load them into the HTML when the app is started again. renderTodoList just does that.
 function renderTodoList() {
@@ -90,12 +103,12 @@ function renderTodoList() {
 
   for(var i=0; i<data.todo.length; i++){
     var value = data.todo[i];
-    additemTodo(value);
+    additemToDOM(value);
   }
 
   for(var j=0; j<data.completed.length; j++){
     var value = data.completed[j];
-    additemTodo(value, true);
+    additemToDOM(value, true);
   }
 
 }
@@ -156,7 +169,7 @@ function completeItem(){
 
 
 
-function additemTodo(text, completed){
+function additemToDOM(text, completed){
   var list = (completed)?document.getElementById('completed'):document.getElementById('todo');
   var item = document.createElement('li');
   item.innerText = text;

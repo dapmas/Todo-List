@@ -3,9 +3,6 @@
                     Other quotes are just for the sake of my learning.
 *******************************************************************************/
 
-/*  console.log("Lolz"); */
-/* console.log(document.getElementById('add')); */
-
 /**********************************************************************************************************
     Where should we should put the script/ javascript tag in "header" or in "body"
 
